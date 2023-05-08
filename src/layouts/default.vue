@@ -1,6 +1,10 @@
 <template>
+
+   <div>
+    <header-nav ></header-nav>
   <div class="flex">
-  <div class="">
+   
+  <div>
     <div>
     <!-- <h1>Color mode: {{ $colorMode.value }}</h1> -->
     <select v-model="$colorMode.preference">
@@ -21,11 +25,11 @@
       <el-sub-menu index="1">
         <template #title>
           <el-icon><location /></el-icon>
-          <span>Navigator One</span>
+          <span>Productos</span>
         </template>
         <el-menu-item-group>
           <template #title><span>Group One</span></template>
-          <el-menu-item index="1-1">item one</el-menu-item>
+          <el-menu-item index="1-1" > <nuxt-link to="products">Mis Productos</nuxt-link></el-menu-item>
           <el-menu-item index="1-2">item two</el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="Group Two">
@@ -50,10 +54,12 @@
       </el-menu-item>
      
     </el-menu>
-  </div>
-  <div>
+  </div >
+  <div class="m-3">
   <slot/>
 </div>
+</div>
+
 </div>
     
     
