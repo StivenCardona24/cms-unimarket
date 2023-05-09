@@ -7,6 +7,10 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
   ],
 
+  css: [
+    '~/assets/css/element-plus.scss',
+  ],
+
   srcDir: "src",
 
   tailwindcss: {
@@ -25,4 +29,12 @@ export default defineNuxtConfig({
     importStyle: 'scss',
     themes: ['dark'],
   },
+
+  router: {
+    // https://router.vuejs.org/api/interfaces/routeroptions.html
+    options: {},
+    
+  }
+
+
 });

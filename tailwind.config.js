@@ -4,6 +4,8 @@
  ** Docs: https://tailwindcss.com/docs/configuration
  ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
  */
+
+ import defaultTheme from 'tailwindcss/defaultTheme'
  module.exports = {
     darkMode: "class",
     variants: {
@@ -16,6 +18,7 @@
       ],
       borderColor: ["dark", "dark-focus", "dark-focus-within"],
       textColor: ["dark", "dark-hover", "dark-active"]
-    }
+    },
+
   };
   

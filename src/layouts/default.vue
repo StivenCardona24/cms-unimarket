@@ -3,18 +3,8 @@
    <div>
     <header-nav ></header-nav>
   <div class="flex">
-   
   <div>
-    <div>
-    <!-- <h1>Color mode: {{ $colorMode.value }}</h1> -->
-    <select v-model="$colorMode.preference">
-      <option value="system">System</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-      <option value="sepia">Sepia</option>
-    </select>
-  </div>
-  <el-switch v-model="isCollapse" />
+
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -22,23 +12,17 @@
       @open="handleOpen"
       @close="handleClose"
     >
+    <el-menu-item @click="isCollapse = !isCollapse">
+      <el-icon ><Expand v-if="isCollapse" /> <Fold v-else /> </el-icon>
+    </el-menu-item>
       <el-sub-menu index="1">
         <template #title>
-          <el-icon><location /></el-icon>
+          <el-icon><icon-menu /></el-icon>
           <span>Productos</span>
         </template>
         <el-menu-item-group>
-          <template #title><span>Group One</span></template>
-          <el-menu-item index="1-1" > <nuxt-link to="products">Mis Productos</nuxt-link></el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
+          <el-menu-item index="1-1" > <nuxt-link to="/products">Mis Productos</nuxt-link></el-menu-item>
         </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-sub-menu index="1-4">
-          <template #title><span>item four</span></template>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-sub-menu>
       </el-sub-menu>
       <el-menu-item index="2">
         <el-icon><icon-menu /></el-icon>
@@ -55,7 +39,7 @@
      
     </el-menu>
   </div >
-  <div class="m-3">
+  <div class="m-3 w-full">
   <slot/>
 </div>
 </div>
@@ -66,6 +50,7 @@
   </template>
   
   <script lang="ts" setup>
+  import {Expand, Fold} from "@element-plus/icons-vue"
   import { ref } from 'vue'
   import {
     Document,
@@ -73,9 +58,6 @@
     Location,
     Setting,
   } from '@element-plus/icons-vue'
-  
-  const colorMode = useColorMode()
-console.log(colorMode.preference)
 
   const isCollapse = ref(true)
   const handleOpen = (key: string, keyPath: string[]) => {
@@ -92,12 +74,4 @@ console.log(colorMode.preference)
     min-height: 400px;
   }
 
-  .dark body {
-  background-color: #091a28;
-  color: #ebf4f1;
-}
-.sepia-mode body {
-  background-color: #f1e7d0;
-  color: #433422;
-}
   </style>
