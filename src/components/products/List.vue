@@ -37,7 +37,7 @@
   import { ElMessageBox, ElMessage } from 'element-plus';
   const ProductStore = useProductStore();
   const { products, loadingPage } = storeToRefs(ProductStore);
-  const {editProduct,deleteProduct }= ProductStore;
+  const {editProduct,deleteProduct, }= ProductStore;
   const delMessageBoxBank = (value:any) => {
   ElMessageBox.confirm(
     `¿Desea eliminar el producto ${value.nombre}?`,

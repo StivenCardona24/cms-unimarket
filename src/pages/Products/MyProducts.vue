@@ -8,10 +8,10 @@
 <script setup lang="ts">
 
 import { useProductStore } from '@/store/products';
-const { loadProducts} = useProductStore();
+const { loadProductsUser} = useProductStore();
 
 onMounted(() => {
-    loadProducts();
+    loadProductsUser(1);
 });
 
 

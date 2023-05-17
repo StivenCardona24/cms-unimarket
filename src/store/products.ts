@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { Product } from "@/interfaces/product.interface";
 import { createCrud } from "@/api/crud";
-import axios from "axios";
 const newProduct= (): Product => ({
   nombre: "",
   descripcion:"",
@@ -24,6 +23,8 @@ const newProduct= (): Product => ({
       update: updateApi,
       deleteOne: deleteApi,
     } = createCrud({ resource: "productos" });
+
+    const {getOne : LoadUserProducts} = createCrud({resource:"productos/usuario"})
   
     const products = ref<Product[]>([]);
     const currentProduct = ref<Product>(newProduct());
@@ -34,14 +35,6 @@ const newProduct= (): Product => ({
       dialogTitle.value = "Nuevo Producto:";
     };
   
-    async function getUser() {
-      try {
-        const response = await axios.get('http://localhost:8081/api/productos');
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    }
 
 
     const loadProducts = async () => {
@@ -49,6 +42,18 @@ const newProduct= (): Product => ({
       // getUser();
       loadingPage.value = true;
       const data = await loadApi();
+
+      console.log(data);
+      products.value = data.respuesta;
+    
+      loadingPage.value = false;
+    };
+
+    const loadProductsUser = async (id:number) => {
+
+      // getUser();
+      loadingPage.value = true;
+      const data = await LoadUserProducts(id);
 
       console.log(data);
       products.value = data.respuesta;
@@ -100,6 +105,7 @@ const newProduct= (): Product => ({
       saveProduct,
       editProduct,
       loadProducts,
+      loadProductsUser,
       deleteProduct,
       loadingPage,
       dialogTitle,

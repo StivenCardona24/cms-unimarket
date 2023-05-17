@@ -21,7 +21,7 @@
           <span>Productos</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1" > <nuxt-link to="/products">Mis Productos</nuxt-link></el-menu-item>
+          <el-menu-item index="1-1" > <nuxt-link to="/products/myProducts">Mis Productos</nuxt-link></el-menu-item>
         </el-menu-item-group>
       </el-sub-menu>
       <el-menu-item index="2">

@@ -1,20 +1,13 @@
 <template>
   <el-row>
-    <el-col
-      v-for="(o, index) in 2"
-      :key="o"
-      :span="8"
-      :offset="index > 0 ? 2 : 0"
-    >
+    <el-col v-for="(product, index) in products" :key="index" :span="4" :offset="2">
       <el-card :body-style="{ padding: '0px' }">
-        <img
-          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-          class="image"
-        />
+        <img :src="product.imagenes.image1"
+          class="image" />
         <div style="padding: 14px">
-          <span>Yummy hamburger</span>
+          <span >{{ product.nombre }}</span>
           <div class="bottom">
-            <time class="time">{{ currentDate }}</time>
+            <time class="time">{{ product.fechaLimite }}</time>
             <el-button text class="button">Operating</el-button>
           </div>
         </div>
@@ -25,7 +18,16 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useProductStore } from '@/store/products';
+import { storeToRefs } from "pinia";
+import { ElMessageBox, ElMessage } from 'element-plus';
+const ProductStore = useProductStore();
+const { products, loadingPage } = storeToRefs(ProductStore);
+const { loadProducts } = useProductStore();
 
+onMounted(() => {
+  loadProducts();
+});
 const currentDate = ref(new Date())
 </script>
 
