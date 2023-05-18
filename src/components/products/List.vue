@@ -9,11 +9,11 @@
             <el-table-column label="Acciones" align="center">
                 <template #default="scope">
                     <div class="flex gap-1 justify-end">
-                        <el-button plain type="primary" @click="editBank(scope.row)" >
+                        <el-button plain type="primary" @click="editProduct(scope.row)" >
                 
                             <template #icon>
                                 <el-icon>
-                                    <icon-edit />
+                                    <Edit />
                                 </el-icon>
                             </template>
                         </el-button>
@@ -21,7 +21,7 @@
                            
                             <template #icon>
                                 <el-icon>
-                                    <icon-delete />
+                                    <Delete />
                                 </el-icon>
                             </template>
                         </el-button>
@@ -33,6 +33,7 @@
 </template>
 <script lang="ts" setup>
   import { useProductStore } from '@/store/products';
+  import { Edit, Delete } from '@element-plus/icons-vue'
   import { storeToRefs } from "pinia";
   import { ElMessageBox, ElMessage } from 'element-plus';
   const ProductStore = useProductStore();
@@ -53,7 +54,7 @@
     await deleteProduct(value)
     ElMessage({
       type: 'success',
-      message: `Producto ${value.name} eliminado`,
+      message: `Producto se ha eliminado`,
     })
   })
 }

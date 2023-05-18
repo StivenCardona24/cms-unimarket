@@ -17,7 +17,7 @@
   <el-row :gutter="24">
   <el-col :span="12">
     <el-form-item class="mb-6" label="Nombre: " prop="nombre">
-      <el-input v-model="currentProduct.name" placeholder="Ingresa el nombre" />
+      <el-input v-model="currentProduct.nombre" placeholder="Ingresa el nombre" />
     </el-form-item>
   </el-col>
   <el-col :span="12">
@@ -102,7 +102,7 @@
 </template>
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from "element-plus";
-import { Plus } from '@element-plus/icons-vue'
+
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import { ref } from 'vue'
 import { useProductStore } from '@/store/products'
@@ -167,21 +167,19 @@ const { currentProduct, mesageBox, dialogTitle} = storeToRefs(ProductStore);
 const { saveProduct } = ProductStore;
 
 
-
 const save = async () => {
+  console.log("holiiii")
   formRef.value.validate(async (valid) => {
-    if (valid ) {
+    if (valid) {
       await saveProduct();
-      ElMessage({
+        ElMessage({
           type: `${mesageBox.value.type}`,
           message: `${mesageBox.value.message}`,
-        });
+        })
       formRef.value.resetFields();
     }
-    
   });
 };
-
 
 const fileList = ref<UploadUserFile[]>([])
 

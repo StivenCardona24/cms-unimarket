@@ -62,6 +62,7 @@ const newProduct= (): Product => ({
     };
   
     const saveProduct = async () => {
+      console.log(currentProduct.value);
       if (!currentProduct.value) {
           alert("error")
           return mesageBox;
@@ -87,16 +88,18 @@ const newProduct= (): Product => ({
     const editProduct = (product: Product) => {
       currentProduct.value = JSON.parse(JSON.stringify(product));
       dialogTitle.value = `Editar producto: ${currentProduct.value.nombre} `;
+      navigateTo('/products/form');
 
     };
   
     const deleteProduct = async (product: Product) => {
+      console.log(product)
       currentProduct.value = JSON.parse(JSON.stringify(product));
-      if(currentProduct.value.codigo){
+      if(product.codigo){
 
-        await deleteApi(currentProduct.value.codigo);
+        await deleteApi(product.codigo);
       }
-      await loadProducts();
+      await loadProductsUser(1);
     };
     return {
       products,
