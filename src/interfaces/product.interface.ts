@@ -6,17 +6,17 @@ export interface Product  {
     nombre: string;
     descripcion: string;
     unidades: number;
-    precioUnitario: number;
+    precio: number;
     fechaLimite?: Date;
     prioridad?: number;
     disponible?: boolean;
     
    
     categorias: Category[];
-    imagenes: Map<string, string>;
+    imagenes: { [key: string]: string;};
     estado?: ProductStatus
     // comentario: Comentario[];
-     usuarioPropietario?: number;
+     vendedor?: number;
 
 
 }

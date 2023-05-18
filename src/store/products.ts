@@ -5,10 +5,10 @@ const newProduct= (): Product => ({
   nombre: "",
   descripcion:"",
   unidades: 0,
-  precioUnitario: 0,
+  precio: 0,
   categorias: [],
-  imagenes: new Map<string, string>(),
-  usuarioPropietario: 1
+  imagenes: {},
+  vendedor: 1
   });
 
   export const useProductStore = defineStore("product", () => {
@@ -71,17 +71,21 @@ const newProduct= (): Product => ({
           const response:any = await updateApi(currentProduct.value.codigo, currentProduct.value);
           if(!response.error){
             mesageBox.value = {type:'success', message:`El producto ${currentProduct.value.nombre} se ha actualizado correctamente`};
+
           }
        
         
        
       } else {
         const response:any = await createApi(currentProduct.value);
-        if(currentProduct.value.codigo){
+        console.log(response)
+        if(response){
           mesageBox.value = {type:'success',message:`El producto ${currentProduct.value.nombre} ha sido creado correctamente`};
+          await loadProductsUser(1);
+          navigateTo('/products/myProducts')
         }  
       }
-      await loadProducts();
+      
       
     };
   

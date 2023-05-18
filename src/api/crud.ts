@@ -43,7 +43,7 @@ export const createCrud = (options: CrudOptions) => {
 
   const create = async (data: any) => {
     try {
-      const response = await api.post("/", data);
+      const response = await api.post("", data);
       return response;
     } catch (error) {
       options.errorCrete?.(error);
