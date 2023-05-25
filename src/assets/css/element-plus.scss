@@ -3,10 +3,20 @@ html.dark {
   --el-menu-bg-color: #f76429 !important;
   --el-menu-text-color: #fff !important;
   background-color: #2c2c2c;
+  --el-header-padding: 0 0 !important;
 }
 
 html.light {
   /* custom dark bg color */
   --el-menu-bg-color: #f76429 !important;
   --el-menu-text-color: #fff !important;
+  --el-header-padding: 0px 0px !important;
+}
+
+.el-header{
+ padding: 0 !important;
+}
+
+.el-aside{
+  width: auto !important;
 }
