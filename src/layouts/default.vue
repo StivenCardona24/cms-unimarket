@@ -12,30 +12,11 @@ import { AssideNav } from '../../.nuxt/components';
         </el-aside>
         <el-main>
           <slot></slot>
+          
         </el-main>
       </el-container>
     </el-container>
-  </div>
-</template>
-
-
-
-<!-- <template>
-
-   <div>
-    <header-nav ></header-nav>
-  <div class="flex">
-  <div>
-
-   <asside-nav></asside-nav>
-  </div >
-  <div class="m-3 w-full">
-  <slot/>
-</div>
-</div>
-
-</div>
-    
-    
-  </template> -->
   
+  </div>
+  <auth-login-modal></auth-login-modal>
+</template>
