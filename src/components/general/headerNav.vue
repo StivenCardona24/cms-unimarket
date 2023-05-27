@@ -1,19 +1,21 @@
 <template>
-  <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false" >
+  <el-menu active-text-color="false" class="el-menu-demo" mode="horizontal" :ellipsis="false" >
     <el-menu-item index="0">
-      <div class="text-xl"> <nuxt-link to="/">UNIMARKET </nuxt-link> </div>
+      <div class="text-2xl"> <nuxt-link to="/" >UNIMARKET </nuxt-link> </div>
     </el-menu-item>
     <div class="flex-grow" />
     <el-menu-item index="1">
-      <el-button type="warning" class="large-button " @click="openLogin" >Iniciar Sesión</el-button>
+      <el-button type="primary" plain class="large-button " @click="openLogin" >Iniciar Sesión</el-button>
+      <el-button type="warning" plain class="large-button " @click="openRegister" >Registrarse</el-button>
     </el-menu-item>
 
-    <el-sub-menu index="2">
+
+    <el-sub-menu index="3">
       <template #title>Workspace</template>
       <!-- Resto del código... -->
     </el-sub-menu>
 
-    <el-menu-item index="3">
+    <el-menu-item index="4">
       <div class="select-container">
         <select v-model="$colorMode.preference" class="large-select">
           <option value="system">System</option>
@@ -40,7 +42,12 @@ import {
 } from '@element-plus/icons-vue'
 
 import { useAuthStore } from '@/store/auth';
+import {useUserStore} from '@/store/user';
+
+const { openRegister } = useUserStore();
 const { openLogin } = useAuthStore();
+
+
 
 const colorMode = useColorMode()
 console.log(colorMode.preference)

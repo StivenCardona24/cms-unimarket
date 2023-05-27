@@ -1,17 +1,33 @@
-export const useDialog = () => {
-  const dialogIsOpen = ref(false);
 
-  const openDialog = () => {
-    dialogIsOpen.value = true;
-  }
+export const useDialog = {
+   dialogIsOpen : ref(false),
+   formRegister: ref(false),
+   formLogin : ref(true),
+   dialogTitle: ref(""),
 
-  const closeDialog = () => {
-    dialogIsOpen.value = false;
-  }
+   openDialog() {
+    this.dialogIsOpen.value = true;
+  },
+  closeDialog() {
+    this.dialogIsOpen.value = false;
+  },
 
-  return {
-    dialogIsOpen,
-    openDialog,
-    closeDialog,
-  }
+  showLogin(){
+    this.formLogin.value = true;
+    this.dialogTitle.value = "Iniciar Sesión"
+  },
+
+  hiddenLogin(){
+    this.formLogin.value = false;
+  },
+
+  showRegister(){
+    this.formRegister.value = true;
+    this.dialogTitle.value = "Registrarse"
+  },
+
+  hiddenRegister(){
+    this.formRegister.value = false;
+   
+  },
 }

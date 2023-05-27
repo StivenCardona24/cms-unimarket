@@ -14,7 +14,12 @@ const newProduct= (): Product => ({
   export const useProductStore = defineStore("product", () => {
 
     const loadingPage = ref(false);
-    let mesageBox =ref<{type:"success" | "warning" | "info" | "error",message:string }>();
+    let mesageBox =ref<{type:"success" | "warning" | "info" | "error",message:string }>(
+      {
+        type:"error",
+        message:"fd"
+      }
+    );
     let dialogTitle = ref("");
   
     const {

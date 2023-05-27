@@ -1,22 +1,26 @@
-import { AssideNav } from '../../.nuxt/components';
+
 
 <template>
   <div class="common-layout">
     <el-container>
       <el-header>
-        <header-nav></header-nav>
+        <general-header-nav></general-header-nav>
       </el-header>
       <el-container>
         <el-aside>
-          <asside-nav></asside-nav>
+          <general-asside-nav></general-asside-nav>
         </el-aside>
         <el-main>
           <slot></slot>
           
         </el-main>
+      
+       
+       
+        
       </el-container>
     </el-container>
   
   </div>
-  <auth-login-modal></auth-login-modal>
+  <general-dialog-modal></general-dialog-modal>
 </template>

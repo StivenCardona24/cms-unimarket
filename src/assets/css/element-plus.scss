@@ -11,6 +11,17 @@ html.light {
   --el-menu-bg-color: #f76429 !important;
   --el-menu-text-color: #fff !important;
   --el-header-padding: 0px 0px !important;
+  
+  --el-dialog-width: 50%;
+  --el-dialog-margin-top: 15vh;
+
+  --el-dialog-box-shadow: var(--el-box-shadow);
+  --el-dialog-title-font-size: var(--el-font-size-large);
+  --el-dialog-content-font-size: 14px;
+  --el-dialog-font-line-height: var(--el-font-line-height-primary);
+  --el-dialog-padding-primary: 20px;
+  --el-dialog-border-radius: var(--el-border-radius-small);
+  position: relative;
 }
 
 .el-header{
@@ -20,3 +31,19 @@ html.light {
 .el-aside{
   width: auto !important;
 }
+
+.el-dialog{
+  --el-dialog-bg-color: #f1eeec !important;
+  --el-dialog-box-shadow: var(--el-box-shadow-dark) !important;
+  --el-dialog-border-radius: var(--el-border-radius-round) !important;
+  --el-dialog-text-color: #f76429 !important;
+}
+
+.el-dialog__title {
+  font-size: 28px !important;
+  color: #f76429  !important;
+  font-weight: bold;
+
+}
+
+

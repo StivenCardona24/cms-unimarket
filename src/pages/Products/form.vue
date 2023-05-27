@@ -2,7 +2,7 @@
 <template>
   <div class="container mx-auto">
 
-    <sub-header :title="dialogTitle"></sub-header>
+    <general-sub-header :title="dialogTitle"></general-sub-header>
 
     <el-form ref="formRef" :model="currentProduct" :rules="rules" label-width="190px" label-position="left" class="mt-10">
       <!-- class="flex flex-wrap justify-around m-3 " -->
@@ -146,7 +146,7 @@ const save = async () => {
       await saveProduct();
       ElMessage({
         type: `${mesageBox.value.type}`,
-        message: `${mesageBox.value.message}`,
+        message: ` ${mesageBox.value.message} `,
       })
       if(formRef.value) formRef.value.resetFields();
     }
