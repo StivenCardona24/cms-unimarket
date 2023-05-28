@@ -2,7 +2,7 @@
   
         <el-menu
       default-active="2"
-      class="el-menu-vertical-demo"
+      class="el-menu-vertical-demo h-screen overflow-y-auto "
       :collapse="isCollapse"
       @open="handleOpen"
       @close="handleClose"
@@ -61,5 +61,8 @@ const handleClose = (key: string, keyPath: string[]) => {
   width: 200px;
   min-height: 400px;
 }
-
+ button:first-child {
+    margin-right: 10px;
+  }
+ 
 </style>

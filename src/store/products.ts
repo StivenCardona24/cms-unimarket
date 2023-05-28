@@ -100,6 +100,15 @@ const newProduct= (): Product => ({
       navigateTo('/products/form');
 
     };
+
+
+    const viewProduct = (product: Product) => {
+      currentProduct.value = JSON.parse(JSON.stringify(product));
+      dialogTitle.value = `Editar producto: ${currentProduct.value.nombre} `;
+      navigateTo('/products/info');
+
+    };
+  
   
     const deleteProduct = async (product: Product) => {
       console.log(product)
@@ -122,5 +131,6 @@ const newProduct= (): Product => ({
       loadingPage,
       dialogTitle,
       mesageBox,
+      viewProduct,
     };
   });

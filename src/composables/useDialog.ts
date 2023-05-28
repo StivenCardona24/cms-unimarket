@@ -4,6 +4,7 @@ export const useDialog = {
    formRegister: ref(false),
    formLogin : ref(true),
    dialogTitle: ref(""),
+   size: ref('30%'),
 
    openDialog() {
     this.dialogIsOpen.value = true;
@@ -13,6 +14,7 @@ export const useDialog = {
   },
 
   showLogin(){
+    this.size.value = '30%';
     this.formLogin.value = true;
     this.dialogTitle.value = "Iniciar Sesión"
   },
@@ -22,6 +24,7 @@ export const useDialog = {
   },
 
   showRegister(){
+    this.size.value = '50%';
     this.formRegister.value = true;
     this.dialogTitle.value = "Registrarse"
   },

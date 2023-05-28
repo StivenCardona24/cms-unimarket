@@ -1,12 +1,16 @@
 <template>
-  <el-menu active-text-color="false" class="el-menu-demo" mode="horizontal" :ellipsis="false" >
+  <el-menu  active-text-color="false" class="el-menu-demo p-1" mode="horizontal" :ellipsis="false" >
     <el-menu-item index="0">
-      <div class="text-2xl"> <nuxt-link to="/" >UNIMARKET </nuxt-link> </div>
+      <el-icon  ><GoodsFilled /></el-icon> 
+      <div class="text-2xl"> <nuxt-link to="/"    active-class="nuxt-link-desactive" >UNIMARKET </nuxt-link> </div>
+     
+    
     </el-menu-item>
     <div class="flex-grow" />
     <el-menu-item index="1">
-      <el-button type="primary" plain class="large-button " @click="openLogin" >Iniciar Sesión</el-button>
-      <el-button type="warning" plain class="large-button " @click="openRegister" >Registrarse</el-button>
+      <el-button v-if="!isLogged" type="primary" plain class="large-button " @click="openLogin" >Iniciar Sesión</el-button>
+      <el-button v-if="!isLogged" type="warning" plain class="large-button " @click="openRegister" >Registrarse</el-button>
+      <el-button v-if="isLogged" type="danger" plain class="large-button " @click="logout" >Cerrar Sesión</el-button>
     </el-menu-item>
 
 
@@ -39,13 +43,18 @@ import {
   Menu as IconMenu,
   Location,
   Setting,
+  Goods,
+  GoodsFilled
 } from '@element-plus/icons-vue'
 
+import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth';
 import {useUserStore} from '@/store/user';
 
-const { openRegister } = useUserStore();
-const { openLogin } = useAuthStore();
+
+const AuthStore = useAuthStore();
+const {isLogged} = storeToRefs(AuthStore);
+const { openLogin, logout,  } = useAuthStore();
 
 
 
@@ -65,10 +74,22 @@ console.log(colorMode.preference)
   align-items: center;
 }
 
+.el-menu-item.is-active i {
+    color: white;
+}
+
+.el-menu-item.is-desactive i{
+    color: white !important;
+}
+
+.inactive-link::v-deep(.nuxt-link-desactive) {
+  color: white !important;
+}
 
 
-
-
+.nuxt-link-desactive{
+  color:white !important
+}
 
 
 .flex-grow {

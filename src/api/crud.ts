@@ -16,6 +16,14 @@ export const createCrud = (options: CrudOptions) => {
     },
   });
 
+  // api.interceptors.request.use((config) => {
+  //   const token = sessionStorage.getItem('TOKEN_KEY')
+  //   if (token && !config.skipToken) {
+  //     config.headers.Authorization = `Bearer ${token}`
+  //   }
+  //   return config
+  // })
+
   const getAll = async (data?: any) => {
     try {
       if(data){
@@ -44,7 +52,7 @@ export const createCrud = (options: CrudOptions) => {
   const create = async (data: any) => {
     try {
       const response = await api.post("", data);
-      return response;
+      return response.data;
     } catch (error) {
       options.errorCrete?.(error);
       return error;
@@ -54,7 +62,7 @@ export const createCrud = (options: CrudOptions) => {
   const update = async (id: number, data: any) => {
     try {
       const response = await api.put(`/${id}`, data);
-      return response;
+      return response.data;
     } catch (error) {
       options.errorUpdate?.(error);
       return error;
@@ -70,6 +78,8 @@ export const createCrud = (options: CrudOptions) => {
       return error;
     }
   };
+
+ 
 
   return { getAll, getOne, create, update, deleteOne };
 };
