@@ -46,10 +46,10 @@ const newProduct= (): Product => ({
 
       // getUser();
       loadingPage.value = true;
-      const data = await loadApi();
+      const data = await loadApi(true);
 
       console.log(data);
-      products.value = data.respuesta;
+      products.value = data;
     
       loadingPage.value = false;
     };
@@ -58,7 +58,7 @@ const newProduct= (): Product => ({
 
       // getUser();
       loadingPage.value = true;
-      const data = await LoadUserProducts(id);
+      const data = await LoadUserProducts(id, false);
 
       console.log(data);
       products.value = data.respuesta;
@@ -73,7 +73,7 @@ const newProduct= (): Product => ({
           return mesageBox;
         }
         if (currentProduct.value.codigo) {
-          const response:any = await updateApi(currentProduct.value.codigo, currentProduct.value);
+          const response:any = await updateApi(currentProduct.value.codigo, currentProduct.value, false);
           if(!response.error){
             mesageBox.value = {type:'success', message:`El producto ${currentProduct.value.nombre} se ha actualizado correctamente`};
 
@@ -82,7 +82,7 @@ const newProduct= (): Product => ({
         
        
       } else {
-        const response:any = await createApi(currentProduct.value);
+        const response:any = await createApi(currentProduct.value, false);
         console.log(response)
         if(response){
           mesageBox.value = {type:'success',message:`El producto ${currentProduct.value.nombre} ha sido creado correctamente`};
@@ -115,7 +115,7 @@ const newProduct= (): Product => ({
       currentProduct.value = JSON.parse(JSON.stringify(product));
       if(product.codigo){
 
-        await deleteApi(product.codigo);
+        await deleteApi(product.codigo, true);
       }
       await loadProductsUser(1);
     };

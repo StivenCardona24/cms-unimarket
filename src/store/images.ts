@@ -21,7 +21,13 @@ export const useImageStore = defineStore("image", () => {
       alert("error");
       return null
     }    
-    await axios.post("http://localhost:8081/api/imagenes", file)
+    const token = sessionStorage.getItem('TOKEN_KEY')
+    const api  = axios.create({
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+    await api.post("http://localhost:8081/api/imagenes", file)
     .then(response => {
       // Manejar la respuesta del backend aquí
       mesageBox.value = {

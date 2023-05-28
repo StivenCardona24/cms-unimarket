@@ -1,6 +1,11 @@
 <template>
-  <el-form ref="formRef" :model="currentLogin" :rules="rules" style="max-width: 460px" input-width="100px"
-    destroy-on-close>
+  <el-form 
+  ref="formRef" 
+  :model="currentLogin" 
+  :rules="rules" 
+  style="max-width: 460px" 
+  input-width="100px"
+  destroy-on-close>
     <p class="text-center text-2xl mb-3 ">Email</p>
     <el-form-item prop="email">
       <el-input v-model="currentLogin.email" placeholder="Ingresa tu email" type="email">
@@ -13,7 +18,7 @@
     </el-form-item>
     <p class="text-center text-2xl mb-3">Contraseña</p>
     <el-form-item prop="password">
-      <el-input v-model="currentLogin.password" type="password" placeholder="Ingresa tu contraseña">
+      <el-input v-model="currentLogin.password" type="password" placeholder="Ingresa tu contraseña" show-password>
         <template #prepend>
           <el-icon>
             <Lock />

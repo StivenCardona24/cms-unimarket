@@ -2,10 +2,24 @@ import { defineStore } from "pinia";
 import { createCrud } from "@/api/crud";
 
 import {Login} from "@/interfaces/auth.interface";
+import { User } from '@/interfaces/user.interface'
 
 const newLogin= (): Login => ({
   email: "",
   password: ""
+
+  });
+
+  
+const newUser= (): User => ({
+  nombre: "",
+  cedula: "",
+  userName: "",
+  password: "",
+  direccion: "",
+  email:"",
+  telefono: "",
+  fechaNacimiento: '',
 
   });
 
@@ -14,6 +28,7 @@ const newLogin= (): Login => ({
 
     
     const currentLogin = ref<Login>(newLogin());
+    const currentUser = ref<User>(newUser());
 
     const Token = ref();
     const isLogged = ref(false);
@@ -25,11 +40,13 @@ const newLogin= (): Login => ({
       create: postLogin,
     } = createCrud({ resource: "auth/login" });
 
+    const {create: registerUser} = createCrud({resource: "auth/registro"})
+
 
 
    
   const login = async () => {
-    const  data  = await postLogin(currentLogin.value);
+    const  data  = await postLogin(currentLogin.value, false);
     console.log(data)
      
    if ( data.response && data.response.data.error) {
@@ -52,6 +69,43 @@ const newLogin= (): Login => ({
     return true;
   
     }
+
+    const saveUser = async () => {
+      console.log(currentUser.value.fechaNacimiento)
+      const data = await registerUser(currentUser.value, false);
+      if ( data.response && data.response.data.error) {
+        ElNotification({
+          title: 'Warning',
+          message: `${data.response.data.respuesta}`,
+          type: 'warning',
+        });
+        return false;
+      }
+  
+      Token.value = data.respuesta.token;
+      saveToken(Token.value);
+      ElNotification({
+        title: 'Success',
+        message: 'Te has registrado correctamente',
+        type: 'success',
+      });
+      openLogin();
+      return true;
+
+
+    }
+
+
+    
+    
+    const openRegister= () => {
+        currentUser.value = newUser();
+     
+        useDialog.hiddenLogin()
+        useDialog.showRegister();
+        useDialog.openDialog();
+    };
+  
 
 
     const openLogin = () => {
@@ -98,9 +152,13 @@ const newLogin= (): Login => ({
       openLogin,
       login,
       currentLogin,
+      currentUser,
       isLogged,
       logout,
       getToken,
+      openRegister,
+      saveUser,
+
       ...useDialog
  
     };

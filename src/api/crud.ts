@@ -16,21 +16,33 @@ export const createCrud = (options: CrudOptions) => {
     },
   });
 
-  // api.interceptors.request.use((config) => {
-  //   const token = sessionStorage.getItem('TOKEN_KEY')
-  //   if (token && !config.skipToken) {
-  //     config.headers.Authorization = `Bearer ${token}`
-  //   }
-  //   return config
-  // })
+  const skipToken = {
+    skipToken: false
+  }
 
-  const getAll = async (data?: any) => {
+  api.interceptors.request.use((config) => {
+    console.log("entro aqui", config)
+    config.headers.Authorization = ''
+    const token = sessionStorage.getItem('TOKEN_KEY')
+    if (token && !config.skipToken) {
+      console.log("entro aqui2")
+      config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+  })
+
+  const getAll = async (token: boolean, data?: any) => {
+ 
+      skipToken.skipToken = token;
+  
     try {
       if(data){
-        const response = await api.get("/", { params: data });
+        
+        const response = await api.get("/", { params: data, skipToken});
         return response.data;
       }
-        const response = await api.get('');
+        const response = await api.get('', skipToken);
       
       return response.data;
     } catch (error) {
@@ -39,9 +51,11 @@ export const createCrud = (options: CrudOptions) => {
     }
   };
 
-  const getOne = async (id: number) => {
+  const getOne = async (id: number, token: boolean) => {
+    
+    skipToken.skipToken = token;
     try {
-      const response = await api.get(`/${id}`);
+      const response = await api.get(`/${id}`, skipToken);
       return response.data;
     } catch (error) {
       options.errorGetOne?.(error);
@@ -49,9 +63,10 @@ export const createCrud = (options: CrudOptions) => {
     }
   };
 
-  const create = async (data: any) => {
+  const create = async (data: any, token: boolean) => {
+    skipToken.skipToken = token;
     try {
-      const response = await api.post("", data);
+      const response = await api.post("", data, skipToken);
       return response.data;
     } catch (error) {
       options.errorCrete?.(error);
@@ -59,9 +74,10 @@ export const createCrud = (options: CrudOptions) => {
     }
   };
 
-  const update = async (id: number, data: any) => {
+  const update = async (id: number, data: any, token: boolean) => {
+    skipToken.skipToken = token;
     try {
-      const response = await api.put(`/${id}`, data);
+      const response = await api.put(`/${id}`, data, skipToken);
       return response.data;
     } catch (error) {
       options.errorUpdate?.(error);
@@ -69,9 +85,10 @@ export const createCrud = (options: CrudOptions) => {
     }
   };
 
-  const deleteOne = async (id: number) => {
+  const deleteOne = async (id: number, token: boolean) => {
+    skipToken.skipToken = token;
     try {
-      const response = await api.delete(`/${id}`);
+      const response = await api.delete(`/${id}`, skipToken);
       return response.data;
     } catch (error) {
       options.errorDelete?.(error);

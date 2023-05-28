@@ -16,7 +16,7 @@
           <span>Productos</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1" > <nuxt-link to="/products/myProducts">Mis Productos</nuxt-link></el-menu-item>
+          <nuxt-link to="/products/myProducts"> <el-menu-item index="1-1" > Mis Productos</el-menu-item></nuxt-link>
         </el-menu-item-group>
       </el-sub-menu>
       <el-menu-item index="2">
@@ -47,7 +47,7 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
-const isCollapse = ref(true)
+const isCollapse = ref(false)
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }

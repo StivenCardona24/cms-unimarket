@@ -10,7 +10,7 @@
     <el-menu-item index="1">
       <el-button v-if="!isLogged" type="primary" plain class="large-button " @click="openLogin" >Iniciar Sesión</el-button>
       <el-button v-if="!isLogged" type="warning" plain class="large-button " @click="openRegister" >Registrarse</el-button>
-      <el-button v-if="isLogged" type="danger" plain class="large-button " @click="logout" >Cerrar Sesión</el-button>
+      <el-button v-if="isLogged" type="danger" plain class="large-button " @click="beforeLogout" >Cerrar Sesión</el-button>
     </el-menu-item>
 
 
@@ -47,6 +47,7 @@ import {
   GoodsFilled
 } from '@element-plus/icons-vue'
 
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth';
 import {useUserStore} from '@/store/user';
@@ -54,13 +55,39 @@ import {useUserStore} from '@/store/user';
 
 const AuthStore = useAuthStore();
 const {isLogged} = storeToRefs(AuthStore);
-const { openLogin, logout,  } = useAuthStore();
+const { openLogin, logout, openRegister  } = useAuthStore();
 
 
 
 const colorMode = useColorMode()
 console.log(colorMode.preference)
 
+
+
+const beforeLogout = () => {
+  ElMessageBox.confirm(
+    'Esta seguro de cerrar sesión',
+    'Warning',
+    {
+      confirmButtonText: 'Cerrar Sesión',
+      cancelButtonText: 'Cancelar',
+      type: 'warning',
+    }
+  )
+    .then(async() => {
+      await logout();
+      ElMessage({
+        type: 'success',
+        message: 'Sesión cerrada',
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: 'Gracias por no irte',
+      })
+    })
+}
 
 
 </script>

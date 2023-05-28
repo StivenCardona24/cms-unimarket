@@ -24,3 +24,19 @@
   </div>
   <general-dialog-modal></general-dialog-modal>
 </template>
+<script setup lang="ts">
+import { useAuthStore } from "@/store/auth";
+import { storeToRefs } from "pinia";
+
+
+const AuthStore = useAuthStore();
+const { isLogged } = storeToRefs(AuthStore)
+
+    onBeforeMount(async () => {
+      console.log("jdfkdjfdk")
+  const token = sessionStorage.getItem('TOKEN_KEY');
+  if (token) {
+    isLogged.value = true;
+  }
+});
+</script>

@@ -22,6 +22,13 @@ const newUser= (): User => ({
 
 
     const currentUser = ref<User>(newUser());
+    const openRegister= () => {
+        currentUser.value = newUser();
+     
+        useDialog.hiddenLogin()
+        useDialog.showRegister();
+        useDialog.openDialog();
+    };
   
     // const {
     //   getAll: loadApi,
@@ -34,13 +41,6 @@ const newUser= (): User => ({
   
 
   
-    const openRegister= () => {
-        currentUser.value = newUser();
-     
-        useDialog.hiddenLogin()
-        useDialog.showRegister();
-        useDialog.openDialog();
-    };
   
 
 

@@ -8,7 +8,7 @@ export interface User  {
     direccion: string;
     email: string;
     telefono?: string;
-    fechaNacimiento: Date;
+    fechaNacimiento: string;
     activo?:boolean
    
     // categorias: Category[];
