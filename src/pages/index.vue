@@ -10,7 +10,7 @@
         </div>
         <div class="bottom">  
             <el-button class="buy-button" type="primary" >
-              Añadir al carrito
+              Ver Más...
             </el-button>
         </div>
       </el-card>

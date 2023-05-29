@@ -15,6 +15,7 @@
       <el-button v-if="!isLogged" type="warning" plain class="large-button " @click="openRegister">Registrarse</el-button>
       <el-button v-if="isLogged" type="danger" plain class="large-button " @click="beforeLogout">Cerrar Sesión</el-button>
     </el-menu-item>
+
     <el-menu-item>
       <div class="select-container">
         <select v-model="$colorMode.preference" class="large-select">
@@ -26,6 +27,12 @@
       </div>
     </el-menu-item>
 
+
+    
+    <el-menu-item v-if="isLogged" @click="loadCart">
+      <el-icon><ShoppingCart /></el-icon>
+        <template #title>Cart</template>
+      </el-menu-item> 
 
     <el-sub-menu index="2" class="hover:text-orange-500" v-if="isLogged">
       <template #title>
@@ -59,7 +66,8 @@ import {
   Goods,
   GoodsFilled,
   User,
-  Edit
+  Edit,
+  ShoppingCart
 } from '@element-plus/icons-vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -77,6 +85,10 @@ const { openLogin, logout, openRegister } = useAuthStore();
 const colorMode = useColorMode()
 console.log(colorMode.preference)
 
+
+const loadCart = () =>{
+  navigateTo("/Sale/Cart")
+}
 
 
 const beforeLogout = () => {
