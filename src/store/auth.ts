@@ -46,7 +46,7 @@ const newUser= (): User => ({
 
    
   const login = async () => {
-    const  data  = await postLogin(currentLogin.value, false);
+    const  data  = await postLogin(currentLogin.value, true);
     console.log(data)
      
    if ( data.response && data.response.data.error) {
@@ -72,7 +72,7 @@ const newUser= (): User => ({
 
     const saveUser = async () => {
       console.log(currentUser.value.fechaNacimiento)
-      const data = await registerUser(currentUser.value, false);
+      const data = await registerUser(currentUser.value, true);
       if ( data.response && data.response.data.error) {
         ElNotification({
           title: 'Warning',

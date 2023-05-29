@@ -11,6 +11,7 @@ const newUser= (): User => ({
     email:"",
     telefono: "",
     fechaNacimiento: '',
+    ciudad: 1
 
     });
 

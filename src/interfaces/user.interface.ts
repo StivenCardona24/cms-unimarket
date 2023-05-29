@@ -9,7 +9,8 @@ export interface User  {
     email: string;
     telefono?: string;
     fechaNacimiento: string;
-    activo?:boolean
+    activo?:boolean,
+    ciudad?: number
    
     // categorias: Category[];
     // imagenes: { [key: string]: string;};

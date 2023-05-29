@@ -10,7 +10,7 @@ interface CrudOptions {
 }
 export const createCrud = (options: CrudOptions) => {
   const api = axios.create({
-    baseURL: `http://localhost:8081/api/${options.resource}`,
+    baseURL: `https://unimarket-production-54f8.up.railway.app/api/${options.resource}`,
     headers: {
       "Content-Type": "application/json",
     },

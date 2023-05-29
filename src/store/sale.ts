@@ -32,7 +32,7 @@ export const useSaleStore = defineStore("Sale", () => {
   // const {getOne : LoadUserProducts} = createCrud({resource:"productos/usuario"})
   // const {getOne : LoadCategoryProducts} = createCrud({resource:"productos/categoria"})
 
-  const user = ref(null);
+ 
 
   const sales = ref<Sale[]>([]);
   const currentSale = ref<Sale>(newSale());
@@ -43,6 +43,8 @@ export const useSaleStore = defineStore("Sale", () => {
 
     currentSale.value.fechaCompra = getDate();
     currentSale.value.usuario = getUser();
+
+    
   };
 
   const createNewDetail = () => {
@@ -69,7 +71,7 @@ export const useSaleStore = defineStore("Sale", () => {
   const loadSalesUser = async () => {
     // getUser();
     loadingPage.value = true;
-
+    const user = getUser();
     const { getAll: getSaleUser } = createCrud({
       resource: `obtenerCodigo/${user}`,
     });
@@ -108,9 +110,29 @@ export const useSaleStore = defineStore("Sale", () => {
 
 
   function getUser( ){
-
+    const token = sessionStorage.getItem('TOKEN_KEY');
+    if(token){
+    const values = decodePayload(token);
+    return values.sub_code;
+    }
+    return [];
   }
 
+  function decodePayload(token: string): any { 
+    const payload = token!.split(".")[1]; 
+    const payloadDecoded = Buffer.from(payload, 'base64').toString('ascii'); 
+    const values = JSON.parse(payloadDecoded); 
+    return values; 
+    }
+    
+//   public getRole():string[]{
+//     const token = this.getToken();
+//     if(token){
+//     const values = this.decodePayload(token);
+//     return values.roles;
+//     }
+//     return [];
+//     }
   return {
     loadingPage,
     dialogTitle,

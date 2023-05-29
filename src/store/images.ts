@@ -27,7 +27,7 @@ export const useImageStore = defineStore("image", () => {
         "Authorization": `Bearer ${token}`,
       },
     });
-    await api.post("http://localhost:8081/api/imagenes", file)
+    await api.post("https://unimarket-production-54f8.up.railway.app/api/imagenes", file)
     .then(response => {
       // Manejar la respuesta del backend aquí
       mesageBox.value = {
