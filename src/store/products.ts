@@ -30,8 +30,12 @@ const newProduct= (): Product => ({
     } = createCrud({ resource: "productos" });
 
     const {getOne : LoadUserProducts} = createCrud({resource:"productos/usuario"})
+    const {getOne : LoadCategoryProducts} = createCrud({resource:"productos/categoria"})
+
+   
   
     const products = ref<Product[]>([]);
+    const userProducts = ref<Product[]>([]);
     const currentProduct = ref<Product>(newProduct());
   
     const createNewProduct= () => {
@@ -61,10 +65,18 @@ const newProduct= (): Product => ({
       const data = await LoadUserProducts(id, false);
 
       console.log(data);
-      products.value = data.respuesta;
+      userProducts.value = data.respuesta;
     
       loadingPage.value = false;
     };
+
+    const loadProductsCategory = async (category:any) => {
+      console.log(category);
+      const data = await LoadCategoryProducts(category, true)
+      console.log(data)
+      products.value = data.respuesta;
+      navigateTo('/')
+    }
   
     const saveProduct = async () => {
       console.log(currentProduct.value);
@@ -130,6 +142,8 @@ const newProduct= (): Product => ({
       deleteProduct,
       loadingPage,
       dialogTitle,
+      loadProductsCategory,
+      userProducts,
       mesageBox,
       viewProduct,
     };

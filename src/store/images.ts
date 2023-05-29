@@ -35,8 +35,9 @@ export const useImageStore = defineStore("image", () => {
         message: `la imagenes de ha guardado correctamente`,
       };
       console.log(response.data.respuesta.url);
-      console.log('Archivo cargado con éxito');
+      console.log('Archivo cargado con éxito', response.data);
       url.value = response.data.respuesta.url;
+      console.log('Archivo cargado con éxito', url.value);
     })
     .catch(error => {
       // Manejar errores aquí

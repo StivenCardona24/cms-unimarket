@@ -7,19 +7,21 @@
       @open="handleOpen"
       @close="handleClose"
     >
-    <el-menu-item @click="isCollapse = !isCollapse">
+    <el-menu-item class="hover:text-orange-500" @click="isCollapse = !isCollapse">
       <el-icon ><Expand v-if="isCollapse" /> <Fold v-else /> </el-icon>
-    </el-menu-item>
-      <el-sub-menu index="1">
+    </el-menu-item >
+     
+      <el-sub-menu index="2" >
         <template #title>
-          <el-icon><icon-menu /></el-icon>
-          <span>Productos</span>
+          <el-icon><MoreFilled /></el-icon>
+          <span>Categorias</span>
         </template>
         <el-menu-item-group>
-          <nuxt-link to="/products/myProducts"> <el-menu-item index="1-1" > Mis Productos</el-menu-item></nuxt-link>
+          <nuxt-link to="/" active-text-color="#f1eeec">  <el-menu-item index="2-1"  class="hover:text-orange-500" @click="loadProducts()">Todos</el-menu-item></nuxt-link>
+         <el-menu-item   class="hover:text-orange-500" v-for="(category, index) in categories" :key="index" @click="loadProductsCategory(category)" > {{  category }}</el-menu-item>
         </el-menu-item-group>
       </el-sub-menu>
-      <el-menu-item index="2">
+      <!-- <el-menu-item index="2">
         <el-icon><icon-menu /></el-icon>
         <template #title>Navigator Two</template>
       </el-menu-item>
@@ -30,7 +32,7 @@
       <el-menu-item index="4">
         <el-icon><setting /></el-icon>
         <template #title>Navigator Four</template>
-      </el-menu-item>
+      </el-menu-item> -->
      
     </el-menu>
    
@@ -38,7 +40,7 @@
 
 
 <script lang="ts" setup>
-import {Expand, Fold} from "@element-plus/icons-vue"
+import {Expand, Fold, MoreFilled} from "@element-plus/icons-vue"
 import { ref } from 'vue'
 import {
   Document,
@@ -46,6 +48,18 @@ import {
   Location,
   Setting,
 } from '@element-plus/icons-vue'
+
+
+
+import { useCategoryStore } from "@/store/categories";
+import { useProductStore } from "@/store/products";
+import { storeToRefs } from "pinia";
+import { text } from "stream/consumers";
+
+const CategoryStore = useCategoryStore();
+
+const {categories} = storeToRefs(CategoryStore);
+const { loadProductsCategory, loadProducts } = useProductStore();
 
 const isCollapse = ref(false)
 const handleOpen = (key: string, keyPath: string[]) => {
@@ -64,5 +78,16 @@ const handleClose = (key: string, keyPath: string[]) => {
  button:first-child {
     margin-right: 10px;
   }
- 
+ .el-sub-menu__title:hover {
+  color: orangered
+ }
+ .el-menu-item.is-active i {
+    color: white !important;
+}
+
+
+.el-menu-item.is-desactive i{
+    color: white !important;
+}
+
 </style>

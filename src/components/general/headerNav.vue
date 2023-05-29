@@ -1,25 +1,21 @@
 <template>
-  <el-menu  active-text-color="false" class="el-menu-demo p-1" mode="horizontal" :ellipsis="false" >
+  <el-menu active-text-color="false" class="el-menu-demo p-1" mode="horizontal" :ellipsis="false">
     <el-menu-item index="0">
-      <el-icon  ><GoodsFilled /></el-icon> 
-      <div class="text-2xl"> <nuxt-link to="/"    active-class="nuxt-link-desactive" >UNIMARKET </nuxt-link> </div>
-     
-    
+      <el-icon>
+        <GoodsFilled />
+      </el-icon>
+      <div class="text-2xl"> <nuxt-link to="/" active-text-color="#fff" active-class="nuxt-link-desactive">UNIMARKET
+        </nuxt-link> </div>
+
+
     </el-menu-item>
     <div class="flex-grow" />
     <el-menu-item index="1">
-      <el-button v-if="!isLogged" type="primary" plain class="large-button " @click="openLogin" >Iniciar Sesión</el-button>
-      <el-button v-if="!isLogged" type="warning" plain class="large-button " @click="openRegister" >Registrarse</el-button>
-      <el-button v-if="isLogged" type="danger" plain class="large-button " @click="beforeLogout" >Cerrar Sesión</el-button>
+      <el-button v-if="!isLogged" type="primary" plain class="large-button " @click="openLogin">Iniciar Sesión</el-button>
+      <el-button v-if="!isLogged" type="warning" plain class="large-button " @click="openRegister">Registrarse</el-button>
+      <el-button v-if="isLogged" type="danger" plain class="large-button " @click="beforeLogout">Cerrar Sesión</el-button>
     </el-menu-item>
-
-
-    <el-sub-menu index="3">
-      <template #title>Workspace</template>
-      <!-- Resto del código... -->
-    </el-sub-menu>
-
-    <el-menu-item index="4">
+    <el-menu-item>
       <div class="select-container">
         <select v-model="$colorMode.preference" class="large-select">
           <option value="system">System</option>
@@ -29,9 +25,26 @@
         </select>
       </div>
     </el-menu-item>
+
+
+    <el-sub-menu index="2" class="hover:text-orange-500" v-if="isLogged">
+      <template #title>
+        <el-icon>
+          <User />
+        </el-icon>
+        <span>Perfil</span>
+      </template>
+      <el-menu-item-group>
+
+        <nuxt-link to="/products/myProducts" active-text-color="#f1eeec"> <el-menu-item index="1-1"
+            class="hover:text-orange-500" active-text-color="#f1eeec"> <el-icon>
+              <Edit />
+            </el-icon> Mis Productos</el-menu-item></nuxt-link>
+      </el-menu-item-group>
+    </el-sub-menu>
+
+    
   </el-menu>
-
-
 </template>
 
 
@@ -44,18 +57,20 @@ import {
   Location,
   Setting,
   Goods,
-  GoodsFilled
+  GoodsFilled,
+  User,
+  Edit
 } from '@element-plus/icons-vue'
 
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/store/auth';
-import {useUserStore} from '@/store/user';
+import { useUserStore } from '@/store/user';
 
 
 const AuthStore = useAuthStore();
-const {isLogged} = storeToRefs(AuthStore);
-const { openLogin, logout, openRegister  } = useAuthStore();
+const { isLogged } = storeToRefs(AuthStore);
+const { openLogin, logout, openRegister } = useAuthStore();
 
 
 
@@ -74,7 +89,7 @@ const beforeLogout = () => {
       type: 'warning',
     }
   )
-    .then(async() => {
+    .then(async () => {
       await logout();
       ElMessage({
         type: 'success',
@@ -102,11 +117,11 @@ const beforeLogout = () => {
 }
 
 .el-menu-item.is-active i {
-    color: white;
+  color: white;
 }
 
-.el-menu-item.is-desactive i{
-    color: white !important;
+.el-menu-item.is-desactive i {
+  color: white !important;
 }
 
 .inactive-link::v-deep(.nuxt-link-desactive) {
@@ -114,8 +129,8 @@ const beforeLogout = () => {
 }
 
 
-.nuxt-link-desactive{
-  color:white !important
+.nuxt-link-desactive {
+  color: white !important
 }
 
 
@@ -127,5 +142,4 @@ const beforeLogout = () => {
 .el-menu-demo .el-menu-item:hover {
   background-color: transparent;
   color: inherit;
-}
-</style>
+}</style>

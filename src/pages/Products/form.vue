@@ -49,11 +49,12 @@
 
 
       <el-form-item class="mb-6" label="Imagenes:">
-        <el-upload v-model:file-list="fileList" action="http://localhost:8081/api/imagenes" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :before-upload="handleBeforeUpload">
-    <el-icon>
-      <Plus />
-    </el-icon>
-  </el-upload>
+        <el-upload v-model:file-list="fileList" action="http://localhost:8081/api/imagenes" list-type="picture-card"
+          :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :before-upload="handleBeforeUpload">
+          <el-icon>
+            <Plus />
+          </el-icon>
+        </el-upload>
 
 
       </el-form-item>
@@ -104,7 +105,7 @@ const rules = reactive<FormRules>({
     },
   ],
   categorias: [
-  {
+    {
       required: true,
       message: "Por favor ingrese las categorias",
       trigger: "blur",
@@ -134,24 +135,24 @@ const ImageStore = useImageStore();
 const { currentProduct, mesageBox, dialogTitle } = storeToRefs(ProductStore);
 const { saveProduct } = ProductStore;
 
-const {url} = storeToRefs(ImageStore);
+const { url } = storeToRefs(ImageStore);
 const { saveImage } = ImageStore;
 
 
 const save = async () => {
   console.log("holiiii")
-  if(formRef.value){
-  formRef.value.validate(async (valid) => {
-    if (valid) {
-      await saveProduct();
-      ElMessage({
-        type: `${mesageBox.value.type}`,
-        message: ` ${mesageBox.value.message} `,
-      })
-      if(formRef.value) formRef.value.resetFields();
-    }
-  });
-}
+  if (formRef.value) {
+    formRef.value.validate(async (valid) => {
+      if (valid) {
+        await saveProduct();
+        ElMessage({
+          type: `${mesageBox.value.type}`,
+          message: ` ${mesageBox.value.message} `,
+        })
+        if (formRef.value) formRef.value.resetFields();
+      }
+    });
+  }
 };
 
 const fileList = ref<UploadUserFile[]>([])
@@ -159,19 +160,23 @@ const fileList = ref<UploadUserFile[]>([])
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 
-const  handleBeforeUpload = async (file: any) => {
+const handleBeforeUpload = async (file: any) => {
   // Agregar lógica adicional aquí si es necesario
   // Enviar el archivo al backend
   const formData = new FormData();
   formData.append('file', file);
 
   // Realizar la petición al backend
-  
- await saveImage(formData);
+
+  await saveImage(formData);
   console.log(url.value)
-  if(url.value){
-    const num =Object.keys(currentProduct.value.imagenes).length + 1;
+  if (url.value) {
+    const num = Object.keys(currentProduct.value.imagenes).length + 1;
     currentProduct.value.imagenes[`image${num}`] = url.value;
+    fileList.value.push({
+      name: `image${num}`,
+      url: url.value
+    });
   }
 
   // Retorna false para evitar que Element Plus maneje automáticamente la carga del archivo
@@ -194,6 +199,13 @@ const handlePictureCardPreview: UploadProps['onPreview'] = (uploadFile) => {
 onMounted(() => {
   if (currentProduct.value.codigo) {
     console.log(currentProduct);
+    for (let prop in currentProduct.value.imagenes) {
+      console.log(prop, currentProduct.value.imagenes[prop]);
+      fileList.value.push({
+      name: prop,
+      url: currentProduct.value.imagenes[prop]
+    });
+    }
   }
 });
 
